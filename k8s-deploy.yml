@@ -16,8 +16,8 @@ spec:
         app: mavenwebapp
     spec:
       containers:
-        - name: mavencontainer
-          image: 531262218012.dkr.ecr.us-east-1.amazonaws.com/mavenwebapp:REPLACE_TAG
+        - name: mavencontainer   # ⚠️ IMPORTANT (used in pipeline)
+          image: 531262218012.dkr.ecr.us-east-1.amazonaws.com/mavenwebapp:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
