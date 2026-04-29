@@ -1,29 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mavenwebappdeployment
+  name: {{ .Values.labels.app }}-deployment
 spec:
-  replicas: 4
+  replicas: {{ .Values.replicaCount }}
   strategy:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: mavenwebapp
+      app: {{ .Values.labels.app }}
   template:
     metadata:
       labels:
-        app: mavenwebapp
+        app: {{ .Values.labels.app }}
     spec:
       containers:
-        - name: mavencontainer   # ⚠️ IMPORTANT (used in pipeline)
-          image: 531262218012.dkr.ecr.us-east-1.amazonaws.com/mavenwebapp:latest
-          imagePullPolicy: Always
+        - name: {{ .Values.container.name }}-container   # ⚠️ IMPORTANT (used in pipeline)
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.container.port }}
           resources:
             requests:
-              cpu: "150m"
-              memory: "128Mi"
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
             limits:
-              cpu: "500m"
-              memory: "512Mi"
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
