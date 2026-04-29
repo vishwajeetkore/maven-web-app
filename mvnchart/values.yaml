@@ -17,11 +17,11 @@ service:
 
 resources:
  requests:
-  cpu: "150"
-  memory: "128i"
+  cpu: "150m"
+  memory: "128Mi"
  limits:
   cpu: "500m"
-  memory: "512i"
+  memory: "512Mi"
 
 labels:
  app: mavenwebapp
