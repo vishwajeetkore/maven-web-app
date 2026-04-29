@@ -23,5 +23,5 @@ resources:
   cpu: "500m"
   memory: "512i"
 
-lebels:
+labels:
  app: mavenwebapp
