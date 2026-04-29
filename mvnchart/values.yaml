@@ -1,13 +1,13 @@
 replicaCount: 4
 
 image:
- repository: 531262218012.dkr.ecr.us-east-1.amazonaws.com/mavenwebapp
- tag: latest
- pullPolicy: Always
+  repository: 531262218012.dkr.ecr.us-east-1.amazonaws.com/mavenwebapp
+  tag: latest
+  pullPolicy: Always
 
 container:
- name: mavencontainer
- port: 8080
+  name: mavencontainer
+  port: 8080
 
 service:
   name: mavenwebapp-service
@@ -17,12 +17,22 @@ service:
   nodePort: 30007
 
 resources:
- requests:
-  cpu: "150m"
-  memory: "128Mi"
- limits:
-  cpu: "500m"
-  memory: "512Mi"
+  requests:
+    cpu: "150m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
 
 labels:
- app: mavenwebapp
+  app: mavenwebapp
+
+# ✅ ADD THIS BLOCK
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  paths:
+    - path: /
+      pathType: Prefix
