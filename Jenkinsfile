@@ -61,6 +61,8 @@ pipeline {
                 sh '''
                 aws eks update-kubeconfig --region us-east-1 --name guru
                 kubectl get nodes
+                helm uninstall mvnchart
+                cd mvnchart
                 helm install mvnchart .
                 '''
             }
