@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage ('Create Cluster') {
+            steps {
+                sh ''' 
+                eksctl create cluster \
+                --name guru \
+                --region us-east-1 \
+                --node-type t3.medium \
+                --nodes 2 \
+                --node-volume-size 20 \
+                --managed \
+                --vpc-nat-mode Disable \
+                --zones us-east-1a,us-east-1b
+                '''
+            }
+        }
+    }
+}
+
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Delete Cluster') {
+            steps {
+                sh '''
+                eksctl delete cluster \
+                --name guru \
+                --region us-east-1 \
+                --wait
+                '''
+            }
+        }
+    }
+}
